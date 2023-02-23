@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="17e3454a-4b33-4bc4-8e4c-08d1834035cd" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/autofit/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/data/DampedOscillations.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/data/binormal.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/data/binormal_wide.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/data/expsin.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/data/file_example_XLS_10.xls" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/data/linear_data_multiple_measurements.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/data/linear_data_xerrors_yerrors.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/data/linear_data_yerrors.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/data/linear_noerror_multisheet.ods" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/data/logistic.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/data/power_law.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/data/random_sample_from_normal_distribution.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/data/random_sample_from_normal_dsitribution_endlines.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/data/sin_cosine.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/data/sinexp.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/data/step.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/data/sudakov.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/data/tight_logistic.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/data/xsqr_exp.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/frontend.cfg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/icon.bmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/icon.icns" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/icon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/plots/front_end_current_plot.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/plots/residuals.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/src/composite_function.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/src/data_handler.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/src/datum1D.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/src/package.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/src/primitive_function.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/tests/test_composite_function.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIWs_autofit/tests/test_primitive_function.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/setup.cfg" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2M9itvfuMPv5ommpPIkEj32zAOp" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="17e3454a-4b33-4bc4-8e4c-08d1834035cd" name="Changes" comment="" />
+      <created>1677186416767</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1677186416767</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

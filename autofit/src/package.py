@@ -14,14 +14,14 @@ def pkg_path():
         _set_package_path()
     return PACKAGE_PATH
 
-def logger(*stuff) -> None :
+def logger(*args) -> None :
 
     if DEV == 1 :
-        print(*stuff)
+        print(*args)
     elif DEV == 0 :
         statement = ""
-        for thing in stuff :
-            statement += f" {thing}"
+        for idx, arg in enumerate(args) :
+            statement += f" {arg}" if idx > 0 else f"{arg}"
         _to_append(statement)
     else :
         pass

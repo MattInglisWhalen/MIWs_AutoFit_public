@@ -1,4 +1,7 @@
-# MIWs_AutoFit_public
-A preview into the code used to create [MIW's AutoFit](www.ingliswhalen.com/MIWs_AutoFit). The core logic of the program is hidden.
+!["Tests"](https://github.com/MattInglisWhalen/MIW_AutoFit/actions/workflows/tests.yml/badge.svg)
+# MIW's AutoFit
+ Have data but don't know how to fit it? This tool will automatically 
+ tell you the best fit function, along with the best-fit parameters and uncertainties.
 
-![MIW's AutoFit Splash Image](/MIWs_autofit/splash.png "Splash")
+!["MIW's AutoFit splash image"](autofit/splash.png "Splash image")
+
