@@ -1,4 +1,4 @@
-!["Tests"](https://github.com/MattInglisWhalen/MIW_AutoFit/actions/workflows/tests.yml/badge.svg)
+![Tests](https://github.com/MattInglisWhalen/MIW_AutoFit/actions/workflows/tests.yml/badge.svg)
 # MIW's AutoFit
  Have data but don't know how to fit it? This tool will automatically 
  tell you the best fit function, along with the best-fit parameters and uncertainties.
