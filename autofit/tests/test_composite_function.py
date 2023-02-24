@@ -44,20 +44,20 @@ def test_comp_init():
 
     # default constructor
     test_default = CompositeFunction()
-    assert len(test_default.children_list) == 0
+    assert len(test_default.children_list) is 0
     assert test_default.younger_brother is None
     assert test_default.older_brother is None
     assert test_default.parent is None
     assert test_default.prim.func is PrimitiveFunction.sum_
     assert test_default.name == "sum_"
-    assert len(test_default.constraints) == 0
-    assert test_default.dof == 0
+    assert len(test_default.constraints) is 0
+    assert test_default.dof is 0
     assertRelativelyEqual(test_default.eval_at(3.14), 3.14)
 
     # composite with children
     test_children = CompositeFunction(children_list=[PrimitiveFunction.built_in("pow0"),
                                                      PrimitiveFunction.built_in("pow1")])
-    assert len(test_children.children_list) == 2
+    assert len(test_children.children_list) is 2
     assert test_children.younger_brother is None
     assert test_children.older_brother is None
     assert test_children.parent is None
@@ -72,8 +72,8 @@ def test_comp_init():
     test_children.shortname = "new_name2"
     assert test_children.shortname == "new_name2"
     assert test_children.__repr__() == "pow1+pow0 w/ 2 dof"
-    assert len(test_children.constraints) == 0
-    assert test_children.dof == 2
+    assert len(test_children.constraints) is 0
+    assert test_children.dof is 2
     assertRelativelyEqual(test_children.eval_at(0.1), 1 + 0.1 )
 
     assert test_children.num_nodes() == 3
@@ -82,7 +82,7 @@ def test_comp_init():
     # composite with younger brother
     test_brother = CompositeFunction(prim_=PrimitiveFunction.built_in("sin"),
                                      younger_brother=CompositeFunction.built_in("Linear"))
-    assert len(test_brother.children_list) == 0
+    assert len(test_brother.children_list) is 0
     assert test_brother.younger_brother is not None
     assert test_brother.older_brother is None
     assert test_brother.younger_brother.older_brother is test_brother
@@ -93,8 +93,8 @@ def test_comp_init():
     assert test_brother.younger_brother.children_list[0].prim.func is PrimitiveFunction.pow1
     assert test_brother.younger_brother.children_list[1].prim.func is PrimitiveFunction.pow0
     assert test_brother.name == "pow1(pow1+pow0)·my_sin"
-    assert len(test_brother.constraints) == 0
-    assert test_brother.dof == 2
+    assert len(test_brother.constraints) is 0
+    assert test_brother.dof is 2
     assertRelativelyEqual(test_brother.eval_at(0.1), np.sin(0.1)*(1+0.1))
 
 def test_set_get_args():

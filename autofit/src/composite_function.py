@@ -17,18 +17,18 @@ from autofit.src.package import logger
 class CompositeFunction:
 
     """
-     A composite function is represented as a tree.
+    A composite function is represented as a tree.
              sin
           /     \   \
        1 . 4     6   8
       /\    \     \
      2  3   5      7
-     Branches (children) sharing the same parent node are summed together and leaves (brothers) sharing the same branch
-     are multiplied together. All brothers on a branch know their parent, but the parent only knows the oldest brother
-     on each branch. Branches and leaves on the tree implement and model functional composition stemming from
-     the parent node. E.g., with reference to the above tree
-     E.g. f(x) = sin[ f1( f2(x) + f3(x) ) * f4( f5(x) ) + f6( f7(x) ) + f8(x)]
-     """
+    Branches (children) sharing the same parent node are summed together and leaves (brothers) sharing the same branch
+    are multiplied together. All brothers on a branch know their parent, but the parent only knows the oldest brother
+    on each branch. Branches and leaves on the tree implement and model functional composition stemming from
+    the parent node. E.g., with reference to the above tree
+    E.g. f(x) = sin[ f1( f2(x) + f3(x) ) * f4( f5(x) ) + f6( f7(x) ) + f8(x)]
+    """
     """
     The tree for the sigmoid function 2/(3+4e^(-5x)) is then
            neg_pow1(x)
@@ -165,12 +165,6 @@ class CompositeFunction:
         return self._is_submodel
     @property
     def submodel_zero_index(self) -> int:
-        if self._is_submodel :
-            assert self._submodel_zero_index is not None
-            assert self._submodel_of is not None
-        else :
-            assert self._submodel_zero_index is None
-            assert self._submodel_of is None
         return self._submodel_zero_index
     @property
     def submodel_of(self) -> Union[None,CompositeFunction]:
@@ -474,7 +468,6 @@ class CompositeFunction:
         if self.younger_brother is not None :
             tree_str += '\n' + buffer_chars
             bro_str = self._younger_brother.tree_as_string_with_dimensions(buffer_chars=buffer_chars)
-            print(f"~~{bro_str}~~")
             tree_str += bro_str
 
         # return tree_str.rstrip('\n') + "\n"
