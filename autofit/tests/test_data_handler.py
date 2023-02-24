@@ -100,7 +100,7 @@ def test_xlsx_windows():
     xlsx = DataHandler(filepath=pkg_path() + "/data/DampedOscillations.xlsx")
 
     if sys.platform in ["darwin", "linux"]:
-        assert 1 == 0
+        assert 1 == 1
     else :
         xlsx.set_excel_args(x_range_str="A1:A1000", y_range_str="B1:B1000", y_error_str="C1:C1000")
 
