@@ -30,21 +30,21 @@ jobs:
       - name: Test with tox (windows)
         if: matrix.os == 'windows-latest'
         run: |
-          $env:TOX_RAW = $( tox )
+          $env:TOX_RAW = $( python -m tox )
           $env:TOX_TRIMMED = $env:TOX_RAW.Substring($env:TOX_RAW.Length - 120)
           $env:TOX_PERC = $env:TOX_TRIMMED -replace '[\s0-9a-zA-Z=]*(?<pattern>[0-9][0-9])%[\s=a-z0-9,.]*', '${pattern}'
           echo "PERCENTAGE_WIN=$env:TOX_PERC" >> $env:GITHUB_ENV
       - name: Test with tox (ubuntu)
         if: matrix.os == 'ubuntu-latest'
         run: |
-          export TOX_RAW=$( tox )
+          export TOX_RAW=$( python -m tox )
           export TOX_TRIMMED=${TOX_RAW:(-120)}
           export TOX_PERC=$( [[ ${TOX_TRIMMED} =~ ([0-9]*%) ]] && echo "${BASH_REMATCH[1]}" )
           echo "PERCENTAGE_UBUNTU=${TOX_PERC::-1}" >> $GITHUB_ENV
       - name: Test with tox (macos)
         if: matrix.os == 'macos-latest'
         run: |
-          export TOX_RAW=$( tox )
+          export TOX_RAW=$( python -m tox )
           export TOX_TRIMMED=${TOX_RAW:(-120)}
           export TOX_PERC=$( [[ ${TOX_TRIMMED} =~ ([0-9]*%) ]] && echo "${BASH_REMATCH[1]}" )
           echo "PERCENTAGE_OSX=${TOX_PERC::-1}" >> $GITHUB_ENV
@@ -63,7 +63,7 @@ jobs:
           echo "${{env.PERCENTAGE_MACOS}}"
       
 
-      - name: Make badge windows
+      - name: Make badge (windows)
         if: matrix.os == 'windows-latest'
         uses: schneegans/dynamic-badges-action@v1.6.0
         with:
@@ -77,7 +77,7 @@ jobs:
           maxColorRange: 100
           valColorRange: ${{ env.PERCENTAGE_WIN }}
 
-      - name: Make badge non-windows
+      - name: Make badge (ubuntu)
         if: matrix.os == 'ubuntu-latest'
         uses: schneegans/dynamic-badges-action@v1.6.0
         with:
@@ -91,7 +91,7 @@ jobs:
           maxColorRange: 100
           valColorRange: ${{ env.PERCENTAGE_UBUNTU }}
 
-      - name: Make badge non-windows
+      - name: Make badge (macos)
         if: matrix.os == 'macos-latest'
         uses: schneegans/dynamic-badges-action@v1.6.0
         with:
