@@ -18,33 +18,24 @@ jobs:
       - name: Test with tox (windows)
         if: matrix.os == 'windows-latest'
         run: |
-          echo "PYTEST_OUTPUT=${{env.output}}" >> $env:GITHUB_ENV
+          $env:TOX_RAW = ${{env.output}}
+          $env:TOX_TRIMMED = $env:TOX_RAW.Substring($env:PYTEST_OUTPUT.Length - 120)
+          $env:TOX_PERC = $env:TOX_TRIMMED}} -replace '[\s0-9a-zA-Z=]*(?<pattern>[0-9][0-9])%[\s=a-z0-9,.]*', '${pattern}'
+          echo "PERCENTAGE_WIN=$env:TOX_PERC" >> $env:GITHUB_ENV
       - name: Test with tox (non-windows)
         if: matrix.os != 'windows-latest'
         run: |
           echo "PYTEST_OUTPUT=${{env.output}}" >> $GITHUB_ENV
 
-      - name: Coverage Windows Trim
+      - name: Output (windows)
         if: matrix.os == 'windows-latest'
+        run: |
+          echo "${{env.PERCENTAGE_WIN}}"
+      - name: Output (non-windows)
+        if: matrix.os != 'windows-latest'
         run: |
           echo "${{env.PYTEST_OUTPUT}}"
-          echo "PYTEST_TRIMMED=${{env.PYTEST_OUTPUT}}.Substring(${{env.PYTEST_OUTPUT}}.Length - 120)" >> $env:GITHUB_ENV
-      - name: Coverage Non-Windows Trim
-        if: matrix.os != 'windows-latest'
-        run: |
-          echo "${PYTEST_OUTPUT}"
-          echo "PYTEST_TRIMMED=${PYTEST_OUTPUT}.Substring(${PYTEST_OUTPUT}.Length - 120)" >> GITHUB_ENV
-
-      - name: Coverage Windows Clean
-        if: matrix.os == 'windows-latest'
-        run: |
-          echo "${{env.PYTEST_TRIMMED}}"
-          echo "PERCENTAGE_WIN=\"${{env.PYTEST_TRIMMED}}\" -replace '[\s0-9a-zA-Z=]*(?<pattern>[0-9][0-9])%[\s=a-z0-9,.]*', '${pattern}'" >> $env:GITHUB_ENV
-      - name: Coverage Non-Windows Clean
-        if: matrix.os != 'windows-latest'
-        run: |
-          echo "${PYTEST_TRIMMED}"
-          echo "PERCENTAGE_NONWIN=${PYTEST_TRIMMED} -replace '[\s0-9a-zA-Z=]*(?<pattern>[0-9][0-9])%[\s=a-z0-9,.]*', '${pattern}'" >> GITHUB_ENV
+      
 
       - name: Make badge windows
         if: matrix.os == 'windows-latest'
