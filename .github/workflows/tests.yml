@@ -17,36 +17,57 @@ jobs:
     steps:
       - name: Test with tox (windows)
         if: matrix.os == 'windows-latest'
-        run: echo "$env:PYTEST_OUTPUT=${{env.output}}" >> $GITHUB_ENV
+        run: echo "PYTEST_OUTPUT=${{env.output}}" >> $env:GITHUB_ENV
       - name: Test with tox (non-windows)
         if: matrix.os != 'windows-latest'
-        run: echo "PYTEST_OUTPUT=${{env.output}}" >> GITHUB_ENV
+        run: echo "PYTEST_OUTPUT=${{env.output}}" >> $GITHUB_ENV
 
       - name: Coverage Windows Trim
         if: matrix.os == 'windows-latest'
         run: |
           echo "${{env.PYTEST_OUTPUT}}"
-          $env:PYTEST_TRIMMED = ${{env.PYTEST_OUTPUT}}.Substring(${{env.PYTEST_OUTPUT}}.Length - 120)
+          echo "PYTEST_TRIMMED=${{env.PYTEST_OUTPUT}}.Substring(${{env.PYTEST_OUTPUT}}.Length - 120)" >> $env:GITHUB_ENV
       - name: Coverage Non-Windows Trim
         if: matrix.os != 'windows-latest'
         run: |
           echo "${{env.PYTEST_OUTPUT}}"
+          echo "PYTEST_TRIMMED=${{env.PYTEST_OUTPUT}}.Substring(${{env.PYTEST_OUTPUT}}.Length - 120)" >> GITHUB_ENV
+
 
 
       - name: Coverage Windows Clean
         if: matrix.os == 'windows=latest'
         run: |
           echo ${{env.PYTEST_TRIMMED}}
-          $env:PERCENTAGE_WIN = ${{env.PYTEST_TRIMMED}} -replace '[\s0-9=]*(?<pattern>[0-9][0-9])%[\s=a-z0-9,.]*', '${pattern}'
+          echo "PERCENTAGE_WIN=${{env.PYTEST_TRIMMED}} -replace '[\s0-9=]*(?<pattern>[0-9][0-9])%[\s=a-z0-9,.]*', '${pattern}'" >> $env:GITHUB_ENV
+      - name: Coverage Non-Windows Clean
+        if: matrix.os == 'windows=latest'
+        run: |
+          echo ${{env.PYTEST_TRIMMED}}
+          echo "PERCENTAGE_WIN=${{env.PYTEST_TRIMMED}} -replace '[\s0-9=]*(?<pattern>[0-9][0-9])%[\s=a-z0-9,.]*', '${pattern}'" >> GITHUB_ENV
 
       - name: Make badge windows
-        if: ( (${{matrix.os}} == "windows-latest") && (${{matrix.python-version}} == '3.9') )
+        if: matrix.os == 'windows-latest'
         uses: schneegans/dynamic-badges-action@v1.6.0
         with:
           # GIST_TOKEN is a GitHub personal access token with scope "gist".
           auth: ${{ secrets.GIST_TOKEN }}
           gistID: 4fb351291438ee5d4f772ff9966f06d3   # replace with your real Gist id.
           filename: covbadge_windows.json
+          label: Windows
+          message: ${{ env.PERCENTAGE_WIN }}%
+          minColorRange: 0
+          maxColorRange: 100
+          valColorRange: ${{ env.PERCENTAGE_WIN }}
+
+      - name: Make badge non-windows
+        if: matrix.os != 'windows-latest'
+        uses: schneegans/dynamic-badges-action@v1.6.0
+        with:
+          # GIST_TOKEN is a GitHub personal access token with scope "gist".
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: 4fb351291438ee5d4f772ff9966f06d3   # replace with your real Gist id.
+          filename: covbadge_nonwindows.json
           label: Windows
           message: ${{ env.PERCENTAGE_WIN }}%
           minColorRange: 0
