@@ -32,6 +32,7 @@ jobs:
           $env:TOX_RAW = $( python -m tox )
           $env:TOX_TRIMMED = $env:TOX_RAW.Substring($env:TOX_RAW.Length - 120)
           $env:TOX_PERC = $env:TOX_TRIMMED -replace '[\s0-9a-zA-Z=]*(?<pattern>[0-9][0-9])%[\s=a-z0-9,.]*', '${pattern}'
+          echo $env:TOX_PERC
           echo "PERCENTAGE_WIN=$env:TOX_PERC" >> $env:GITHUB_ENV
       - name: Test with tox (ubuntu)
         if: matrix.os == 'ubuntu-latest'
@@ -39,6 +40,7 @@ jobs:
           export TOX_RAW=$( python -m tox )
           export TOX_TRIMMED=${TOX_RAW:(-120)}
           export TOX_PERC=$( [[ ${TOX_TRIMMED} =~ ([0-9]*%) ]] && echo "${BASH_REMATCH[1]}" )
+          echo $TOX_PERC $TOX_TRIMMED $TOX_RAW
           echo "PERCENTAGE_UBUNTU=${TOX_PERC::-1}" >> $GITHUB_ENV
       - name: Test with tox (macos)
         if: matrix.os == 'macos-latest'
@@ -46,6 +48,7 @@ jobs:
           export TOX_RAW=$( python -m tox )
           export TOX_TRIMMED=${TOX_RAW:(-120)}
           export TOX_PERC=$( [[ ${TOX_TRIMMED} =~ ([0-9]*%) ]] && echo "${BASH_REMATCH[1]}" )
+          echo $TOX_PERC
           echo "PERCENTAGE_OSX=${TOX_PERC::-1}" >> $GITHUB_ENV
       - name: Output (windows)
         if: matrix.os == 'windows-latest'
