@@ -17,18 +17,18 @@ jobs:
     steps:
       - name: Test with tox (windows)
         if: matrix.os == 'windows-latest'
-        run: $env:PYTEST_OUTPUT = $( echo "${{env.output}}" )
+        run: $env:PYTEST_OUTPUT = "${{env.output}}"
       - name: Test with tox (non-windows)
         if: matrix.os != 'windows-latest'
-        run: export PYTEST_OUTPUT = $( echo "${{env.output}}" )
+        run: export PYTEST_OUTPUT = "${{env.output}}"
 
       - name: Coverage Windows Trim
-        if: matrix.os == 'windows=latest'
+        if: matrix.os == 'windows-latest'
         run: |
           echo "${{env.PYTEST_OUTPUT}}"
           $env:PYTEST_TRIMMED = ${{env.PYTEST_OUTPUT}}.Substring(${{env.PYTEST_OUTPUT}}.Length - 120)
       - name: Coverage Non-Windows Trim
-        if: matrix.os != 'windows=latest'
+        if: matrix.os != 'windows-latest'
         run: |
           echo "${{env.PYTEST_OUTPUT}}"
 
