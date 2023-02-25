@@ -25,7 +25,10 @@ jobs:
       - name: Test with tox (non-windows)
         if: matrix.os != 'windows-latest'
         run: |
-          echo "PYTEST_OUTPUT=${{env.output}}" >> $GITHUB_ENV
+          export TOX_RAW="${{env.output}}"
+          export TOX_TRIMMED=${TOX_RAW(-120)}
+          export TOX_PERC=$( [[ ${TOX_TRIMMED} =~ ([0-9]*%) ]] && echo "${BASH_REMATCH[1]}" )
+          echo "PERCENTAGE_NONWIN=${TOX_PERC}" >> $GITHUB_ENV
 
       - name: Output (windows)
         if: matrix.os == 'windows-latest'
@@ -34,7 +37,7 @@ jobs:
       - name: Output (non-windows)
         if: matrix.os != 'windows-latest'
         run: |
-          echo "${{env.PYTEST_OUTPUT}}"
+          echo "${{env.PERCENTAGE_NONWIN}}"
       
 
       - name: Make badge windows
