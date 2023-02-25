@@ -30,18 +30,18 @@ jobs:
         run: tox
 
       - name: Coverage Windows Extract
-        if: ( (${{matrix.os}} == "windows-latest") && (${{matrix.python-version}} == '3.9') )
-        run: $( python -m mypy -W ignore::RuntimeWarning --cov-report term ) >> $env:WIN_PERC_RAW
-
+        if: ( ( matrix.os == 'windows-latest') && ( matrix.python-version == '3.9') )
+        run: $env:PYTEST_OUTPUT = $( python -m pytest -W ignore::RuntimeWarning --cov-report term )
       - name: Coverage Windows Trim
-        if: ( (${{matrix.os}} == "windows-latest") && (${{matrix.python-version}} == '3.9') )
-        run: $env:WIN_PERC_RAW.Substring($env:WIN_PERC_RAW.Length - 120) >> $env:WIN_PERC_TRIMMED
-
-      - name: Coverage Windows Clean
-        if: ( (${{matrix.os}} == "windows-latest") && (${{matrix.python-version}} == '3.9') )
+        if: ( ( matrix.os == 'windows-latest') && ( matrix.python-version == '3.9') )
         run: |
-          echo $env:WIN_PERC_TRIMMED
-          $env:WIN_PERC_TRIMMED -replace '[\s0-9=]*(?<pattern>[0-9][0-9])%[\s=a-z0-9,.]*', '${pattern}' >> $env:PERCENTAGE_WIN
+          echo $PYTEST_OUTPUT
+          $env:PYTEST_TRIMMED = $env:PYTEST_OUTPUT.Substring($env:PYTEST_OUTPUT.Length - 120)
+      - name: Coverage Windows Clean
+        if: ( ( matrix.os == 'windows-latest') && ( matrix.python-version == '3.9') )
+        run: |
+          echo $env:PYTEST_TRIMMED
+          $env:PERCENTAGE_WIN = $env:PYTEST_TRIMMED -replace '[\s0-9=]*(?<pattern>[0-9][0-9])%[\s=a-z0-9,.]*', '${pattern}'
 
       - name: Make badge windows
         if: ( (${{matrix.os}} == "windows-latest") && (${{matrix.python-version}} == '3.9') )
