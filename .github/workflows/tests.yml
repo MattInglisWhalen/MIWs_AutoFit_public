@@ -34,7 +34,9 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: |
           $env:TOX_RAW = $( tox )
-          $env:TOX_PERC = $env:TOX_RAW -replace 'TOTAL[\s]*[0-9]*[\s]*[0-9]*[\s]*(?<pattern>[0-9]*)%', '${pattern}'
+          $env:TOX_TRIMMED = $env:TOX_RAW -replace 'TOTAL[\s0-9]*%', '${pattern}'
+          $env:TOX_PERC = $env:TOX_TRIMMED -replace '[\s0-9a-zA-Z=]*(?<pattern>[0-9][0-9])%[\s=a-z0-9,.]*', '${pattern}'
+          echo " >>>>>>>>>> $TOX_PERC >>>>>>>>>> $TOX_TRIMMED <<<<<<<<<<<<<< $TOX_RAW <<<<<<<<<<<<<<<<<"
           echo "PERCENTAGE_WIN=$env:TOX_PERC" >> $env:GITHUB_ENV
       - name: Test with tox (ubuntu)
         if: matrix.os == 'ubuntu-latest'
@@ -43,6 +45,7 @@ jobs:
           export TOX_TRIMMED=$( [[ ${TOX_RAW} =~ (TOTAL[[:blank:]0-9]*%) ]] && echo "${BASH_REMATCH[1]}" )
           export TOX_PERC_WITH_SYMBOL=$( [[ ${TOX_TRIMMED} =~ ([0-9]*%) ]] && echo "${BASH_REMATCH[1]}" )
           export TOX_PERC=$( [[ ${TOX_TRIMMED} =~ ([0-9]*) ]] && echo "${BASH_REMATCH[1]}" )
+          echo " >>>>>>>>>> $TOX_PERC >>>>>>>>>>>>> $TOX_PERC_WITH_SYMBOL ||||||||||||||||| $TOX_TRIMMED <<<<<<<<< $TOX_RAW <<<<<<<<<<<<<<<<<"
           echo "PERCENTAGE_UBUNTU=${TOX_PERC}" >> $GITHUB_ENV
       - name: Test with tox (macos)
         if: matrix.os == 'macos-latest'
@@ -51,6 +54,7 @@ jobs:
           export TOX_TRIMMED=$( [[ ${TOX_RAW} =~ (TOTAL[[:blank:]0-9]*%) ]] && echo "${BASH_REMATCH[1]}" )
           export TOX_PERC_WITH_SYMBOL=$( [[ ${TOX_TRIMMED} =~ ([0-9]*%) ]] && echo "${BASH_REMATCH[1]}" )
           export TOX_PERC=$( [[ ${TOX_TRIMMED} =~ ([0-9]*) ]] && echo "${BASH_REMATCH[1]}" )
+          echo " >>>>>>>>>> $TOX_PERC >>>>>>>>>>>>> $TOX_PERC_WITH_SYMBOL ||||||||||||||||| $TOX_TRIMMED <<<<<<<<< $TOX_RAW <<<<<<<<<<<<<<<<<"
           echo "PERCENTAGE_MACOS=${TOX_PERC}" >> $GITHUB_ENV
       - name: Output (windows)
         if: matrix.os == 'windows-latest'
