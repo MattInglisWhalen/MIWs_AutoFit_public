@@ -15,12 +15,18 @@ jobs:
       output: "OTAL                      1493    547    63%   ======================== 24 passed, 1 xfailed in 5.54s ========================"
 
     steps:
+      -
       - name: Test with tox (windows)
         if: matrix.os == 'windows-latest'
-        run: echo "PYTEST_OUTPUT=${{env.output}}" >> $env:GITHUB_ENV
+        run: |
+          echo "PYTEST_OUTPUT=${{env.output}}" >> $env:GITHUB_ENV
+          echo "${{env.PYTEST_OUTPUT}}"
       - name: Test with tox (non-windows)
         if: matrix.os != 'windows-latest'
-        run: echo "PYTEST_OUTPUT=${{env.output}}" >> $GITHUB_ENV
+        run: |
+          echo "PYTEST_OUTPUT=${{env.output}}" >> $GITHUB_ENV
+          echo "${PYTEST_OUTPUT}"
+
 
       - name: Coverage Windows Trim
         if: matrix.os == 'windows-latest'
