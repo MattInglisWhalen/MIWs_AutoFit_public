@@ -11,33 +11,56 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         python-version: ['3.9']
-    env:
-      output: "OTAL                      1493    547    63%   ======================== 24 passed, 1 xfailed in 5.54s ======================== TOTAL                      1493    547    63%   ======================== 24 passed, 1 xfailed in 5.54s ========================"
 
     steps:
+
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install tox tox-gh-actions
+
       - name: Test with tox (windows)
         if: matrix.os == 'windows-latest'
         run: |
-          $env:TOX_RAW = "${{env.output}}"
+          $env:TOX_RAW = $( tox )
           $env:TOX_TRIMMED = $env:TOX_RAW.Substring($env:TOX_RAW.Length - 120)
           $env:TOX_PERC = $env:TOX_TRIMMED -replace '[\s0-9a-zA-Z=]*(?<pattern>[0-9][0-9])%[\s=a-z0-9,.]*', '${pattern}'
           echo "PERCENTAGE_WIN=$env:TOX_PERC" >> $env:GITHUB_ENV
-      - name: Test with tox (non-windows)
-        if: matrix.os != 'windows-latest'
+      - name: Test with tox (ubuntu)
+        if: matrix.os == 'ubuntu-latest'
         run: |
-          export TOX_RAW="${{env.output}}"
+          export TOX_RAW=$( tox )
           export TOX_TRIMMED=${TOX_RAW:(-120)}
           export TOX_PERC=$( [[ ${TOX_TRIMMED} =~ ([0-9]*%) ]] && echo "${BASH_REMATCH[1]}" )
-          echo "PERCENTAGE_NONWIN=${TOX_PERC::-1}" >> $GITHUB_ENV
+          echo "PERCENTAGE_UBUNTU=${TOX_PERC::-1}" >> $GITHUB_ENV
+      - name: Test with tox (macos)
+        if: matrix.os == 'macos-latest'
+        run: |
+          export TOX_RAW=$( tox )
+          export TOX_TRIMMED=${TOX_RAW:(-120)}
+          export TOX_PERC=$( [[ ${TOX_TRIMMED} =~ ([0-9]*%) ]] && echo "${BASH_REMATCH[1]}" )
+          echo "PERCENTAGE_OSX=${TOX_PERC::-1}" >> $GITHUB_ENV
 
       - name: Output (windows)
         if: matrix.os == 'windows-latest'
         run: |
           echo "${{env.PERCENTAGE_WIN}}"
-      - name: Output (non-windows)
-        if: matrix.os != 'windows-latest'
+      - name: Output (ubuntu)
+        if: matrix.os == 'ubuntu-latest'
         run: |
-          echo "${{env.PERCENTAGE_NONWIN}}"
+          echo "${{env.PERCENTAGE_UBUNTU}}"
+      - name: Output (macos)
+        if: matrix.os == 'macos-latest'
+        run: |
+          echo "${{env.PERCENTAGE_MACOS}}"
       
 
       - name: Make badge windows
@@ -55,15 +78,29 @@ jobs:
           valColorRange: ${{ env.PERCENTAGE_WIN }}
 
       - name: Make badge non-windows
-        if: matrix.os != 'windows-latest'
+        if: matrix.os == 'ubuntu-latest'
         uses: schneegans/dynamic-badges-action@v1.6.0
         with:
           # GIST_TOKEN is a GitHub personal access token with scope "gist".
           auth: ${{ secrets.GIST_TOKEN }}
           gistID: 4fb351291438ee5d4f772ff9966f06d3   # replace with your real Gist id.
-          filename: covbadge_nonwindows.json
-          label: Non-Windows
-          message: ${{ env.PERCENTAGE_NONWIN }}%
+          filename: covbadge_ubuntu.json
+          label: Ubuntu
+          message: ${{ env.PERCENTAGE_UBUNTU }}%
           minColorRange: 0
           maxColorRange: 100
-          valColorRange: ${{ env.PERCENTAGE_NONWIN }}
+          valColorRange: ${{ env.PERCENTAGE_UBUNTU }}
+
+      - name: Make badge non-windows
+        if: matrix.os == 'macos-latest'
+        uses: schneegans/dynamic-badges-action@v1.6.0
+        with:
+          # GIST_TOKEN is a GitHub personal access token with scope "gist".
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: 4fb351291438ee5d4f772ff9966f06d3   # replace with your real Gist id.
+          filename: covbadge_macos.json
+          label: MacOS
+          message: ${{ env.PERCENTAGE_MACOS }}%
+          minColorRange: 0
+          maxColorRange: 100
+          valColorRange: ${{ env.PERCENTAGE_MACOS }}
