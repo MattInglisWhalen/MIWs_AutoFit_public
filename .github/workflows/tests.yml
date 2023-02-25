@@ -20,7 +20,7 @@ jobs:
         run: |
           $env:TOX_RAW = ${{env.output}}
           $env:TOX_TRIMMED = $env:TOX_RAW.Substring($env:PYTEST_OUTPUT.Length - 120)
-          $env:TOX_PERC = $env:TOX_TRIMMED}} -replace '[\s0-9a-zA-Z=]*(?<pattern>[0-9][0-9])%[\s=a-z0-9,.]*', '${pattern}'
+          $env:TOX_PERC = $env:TOX_TRIMMED -replace '[\s0-9a-zA-Z=]*(?<pattern>[0-9][0-9])%[\s=a-z0-9,.]*', '${pattern}'
           echo "PERCENTAGE_WIN=$env:TOX_PERC" >> $env:GITHUB_ENV
       - name: Test with tox (non-windows)
         if: matrix.os != 'windows-latest'
