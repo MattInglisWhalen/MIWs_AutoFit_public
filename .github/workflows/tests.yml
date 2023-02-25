@@ -42,7 +42,7 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: |
           echo "${{env.PYTEST_TRIMMED}}"
-          echo "PERCENTAGE_WIN=\"${{env.PYTEST_TRIMMED}}\" -replace '[\s0-9a-zA-Z=]*(?<pattern>[0-9][0-9])%[\s=a-z0-9,.]*', '${pattern}'" >> GITHUB_ENV
+          echo "PERCENTAGE_NONWIN=\"${{env.PYTEST_TRIMMED}}\" -replace '[\s0-9a-zA-Z=]*(?<pattern>[0-9][0-9])%[\s=a-z0-9,.]*', '${pattern}'" >> GITHUB_ENV
 
       - name: Make badge windows
         if: matrix.os == 'windows-latest'
