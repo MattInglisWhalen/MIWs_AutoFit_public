@@ -42,7 +42,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           export TOX_RAW=$( python -m tox )
-          export TOX_TRIMMED=$( [[ ${TOX_RAW} =~ (TOTAL[\s0-9]*%) ]] && echo "${BASH_REMATCH[1]}" )
+          export TOX_TRIMMED=$( [[ ${TOX_RAW} =~ (TOTAL[[[:blank:]]0-9]*%) ]] && echo "${BASH_REMATCH[1]}" )
           export TOX_PERC=$( [[ ${TOX_TRIMMED} =~ ([0-9]*%) ]] && echo "${BASH_REMATCH[1]}" )
           echo ">>>>>>>>>>>>>>>>>>>> $TOX_PERC >>>>>>>>>>>>>>>>>>>> $TOX_TRIMMED <<<<<<<<<<<<<<<<<< $TOX_RAW <<<<<<<<<<<<<<<<<<"
           echo "PERCENTAGE_UBUNTU=${TOX_PERC::-1}" >> $GITHUB_ENV
