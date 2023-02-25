@@ -31,18 +31,18 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: |
           echo "${PYTEST_OUTPUT}"
-          echo "PYTEST_TRIMMED=${env.PYTEST_OUTPUT}.Substring(${PYTEST_OUTPUT}.Length - 120)" >> GITHUB_ENV
+          echo "PYTEST_TRIMMED=${PYTEST_OUTPUT}.Substring(${PYTEST_OUTPUT}.Length - 120)" >> GITHUB_ENV
 
       - name: Coverage Windows Clean
         if: matrix.os == 'windows=latest'
         run: |
           echo "${{env.PYTEST_TRIMMED}}"
-          echo "PERCENTAGE_WIN="${{env.PYTEST_TRIMMED}}" -replace '[\s0-9=]*(?<pattern>[0-9][0-9])%[\s=a-z0-9,.]*', '${pattern}'" >> $env:GITHUB_ENV
+          echo "PERCENTAGE_WIN=${{env.PYTEST_TRIMMED}} -replace '[\s0-9=]*(?<pattern>[0-9][0-9])%[\s=a-z0-9,.]*', '${pattern}'" >> $env:GITHUB_ENV
       - name: Coverage Non-Windows Clean
         if: matrix.os != 'windows=latest'
         run: |
           echo "${{env.PYTEST_TRIMMED}}"
-          echo "PERCENTAGE_WIN=${{env.PYTEST_TRIMMED}} -replace '[\s0-9=]*(?<pattern>[0-9][0-9])%[\s=a-z0-9,.]*', '${pattern}'" >> GITHUB_ENV
+          echo "PERCENTAGE_NONWIN=${{env.PYTEST_TRIMMED}} -replace '[\s0-9=]*(?<pattern>[0-9][0-9])%[\s=a-z0-9,.]*', '${pattern}'" >> GITHUB_ENV
 
       - name: Make badge windows
         if: matrix.os == 'windows-latest'
@@ -66,10 +66,10 @@ jobs:
           auth: ${{ secrets.GIST_TOKEN }}
           gistID: 4fb351291438ee5d4f772ff9966f06d3   # replace with your real Gist id.
           filename: covbadge_nonwindows.json
-          label: Windows
-          message: ${{ env.PERCENTAGE_WIN }}%
+          label: Non-Windows
+          message: ${{ env.PERCENTAGE_NONWIN }}%
           minColorRange: 0
           maxColorRange: 100
-          valColorRange: ${{ env.PERCENTAGE_WIN }}
+          valColorRange: ${{ env.PERCENTAGE_NONWIN }}
 
 
