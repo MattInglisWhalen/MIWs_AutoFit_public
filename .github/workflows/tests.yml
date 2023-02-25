@@ -19,6 +19,7 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: |
           echo "PYTEST_OUTPUT=${{env.output}}" >> $env:GITHUB_ENV
+          echo "${{env.PYTEST_OUTPUT}}"
       - name: Test with tox (non-windows)
         if: matrix.os != 'windows-latest'
         run: echo "PYTEST_OUTPUT=${{env.output}}" >> $GITHUB_ENV
