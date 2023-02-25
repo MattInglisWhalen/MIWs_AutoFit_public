@@ -221,7 +221,7 @@ class DataHandler:
 
     @ staticmethod
     def cleaned_line_as_str_list(line, delim) -> list[str]:
-        data = regex.split(f"\s*{delim}\s*", line[:-1])
+        data = regex.split(r"\s*{delim}\s*", line[:-1])
         while data[-1] == "":
             data = data[:-1]
         return data
