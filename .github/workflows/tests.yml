@@ -15,6 +15,7 @@ jobs:
       output: "                       1493    547    63%   ======================== 24 passed, 1 xfailed in 5.54s ========================"
 
     steps:
+      -
       - name: Test with tox (windows)
         if: matrix.os == 'windows-latest'
         run: echo "PYTEST_OUTPUT=${{env.output}}" >> $env:GITHUB_ENV
@@ -25,13 +26,17 @@ jobs:
       - name: Coverage Windows Trim
         if: matrix.os == 'windows-latest'
         run: |
-          echo "${$env:PYTEST_OUTPUT}"
-          echo "PYTEST_TRIMMED=${$env:PYTEST_OUTPUT}.Substring(${$env:PYTEST_OUTPUT}.Length - 120)" >> $env:GITHUB_ENV
+          echo "${{env.PYTEST_OUTPUT}}"
+          echo "PYTEST_TRIMMED=\"${{env.PYTEST_OUTPUT}}\".Substring(\"${{env.PYTEST_OUTPUT}}\".Length - 120)" >> $env:GITHUB_ENV
       - name: Coverage Non-Windows Trim
         if: matrix.os != 'windows-latest'
         run: |
-          echo "${PYTEST_OUTPUT}"
-          echo "PYTEST_TRIMMED=${PYTEST_OUTPUT}.Substring(${PYTEST_OUTPUT}.Length - 120)" >> GITHUB_ENV
+          echo "${{env.PYTEST_OUTPUT}}"
+          echo "PYTEST_TRIMMED=\"${{env.PYTEST_OUTPUT}}\".Substring(\"${{env.PYTEST_OUTPUT}}\".Length - 120)" >> $GITHUB_ENV
+
+
+
+
       - name: Coverage Windows Clean
         if: matrix.os == 'windows-latest'
         run: |
@@ -42,6 +47,7 @@ jobs:
         run: |
           echo "${PYTEST_TRIMMED}"
           echo "PERCENTAGE_NONWIN=${PYTEST_TRIMMED} -replace '[\s0-9a-zA-Z=]*(?<pattern>[0-9][0-9])%[\s=a-z0-9,.]*', '${pattern}'" >> GITHUB_ENV
+
       - name: Make badge windows
         if: matrix.os == 'windows-latest'
         uses: schneegans/dynamic-badges-action@v1.6.0
