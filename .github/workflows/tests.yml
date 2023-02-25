@@ -20,7 +20,7 @@ jobs:
         run: $env:PYTEST_OUTPUT = "${{env.output}}"
       - name: Test with tox (non-windows)
         if: matrix.os != 'windows-latest'
-        run: export PYTEST_OUTPUT = "${{env.output}}"
+        run: export PYTEST_OUTPUT="${{env.output}}"
 
       - name: Coverage Windows Trim
         if: matrix.os == 'windows-latest'
