@@ -28,7 +28,7 @@ jobs:
           export TOX_RAW="${{env.output}}"
           export TOX_TRIMMED=${TOX_RAW:(-120)}
           export TOX_PERC=$( [[ ${TOX_TRIMMED} =~ ([0-9]*%) ]] && echo "${BASH_REMATCH[1]}" )
-          echo "PERCENTAGE_NONWIN=${TOX_PERC}" >> $GITHUB_ENV
+          echo "PERCENTAGE_NONWIN=${TOX_PERC::-1}" >> $GITHUB_ENV
 
       - name: Output (windows)
         if: matrix.os == 'windows-latest'
