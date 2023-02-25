@@ -12,7 +12,7 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
         python-version: ['3.9']
     env:
-      output: "OTAL                      1493    547    63%   ======================== 24 passed, 1 xfailed in 5.54s ========================"
+      output: "OTAL                      1493    547    63%   ======================== 24 passed, 1 xfailed in 5.54s ======================== TOTAL                      1493    547    63%   ======================== 24 passed, 1 xfailed in 5.54s ========================"
 
     steps:
       - name: Test with tox (windows)
