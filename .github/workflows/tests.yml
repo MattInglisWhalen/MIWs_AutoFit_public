@@ -27,10 +27,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install tox tox-gh-actions
 
-      - name: Run tox
-        run: tox > toxlog_${{ matrix.os }}_${{matix.python-version}}.log
-        
-
       - name: Test with tox (windows)
         if: matrix.os == 'windows-latest'
         run: |
