@@ -23,11 +23,7 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: echo "PYTEST_OUTPUT=${{env.output}}" >> $GITHUB_ENV
 
-      - name: Coverage Windows Trim
-        if: matrix.os == 'windows-latest'
-        run: |
-          echo "${{env.PYTEST_OUTPUT}}"
-          echo "PYTEST_TRIMMED=${{env.PYTEST_OUTPUT}}.Substring(${{env.PYTEST_OUTPUT}}.Length - 120)" >> $env:GITHUB_ENV
+
       - name: Coverage Non-Windows Trim
         if: matrix.os != 'windows-latest'
         run: |
