@@ -27,6 +27,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install tox tox-gh-actions
 
+      - name: Normal tox
+        run: tox
+
       - name: Test with tox (windows)
         if: matrix.os == 'windows-latest'
         run: |
@@ -101,7 +104,7 @@ jobs:
           auth: ${{ secrets.GIST_TOKEN }}
           gistID: 4fb351291438ee5d4f772ff9966f06d3   # replace with your real Gist id.
           filename: covbadge_macos.json
-          label: MacOS
+          label: MacOSX
           message: ${{ env.PERCENTAGE_MACOS }}%
           minColorRange: 0
           maxColorRange: 100
