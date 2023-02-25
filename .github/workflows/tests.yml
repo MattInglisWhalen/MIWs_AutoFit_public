@@ -29,24 +29,66 @@ jobs:
       - name: Test with tox
         run: tox
 
-  coverage:
-    name: Coverage
+  coverage_windows:
+    name: Coverage Windows
     needs: tests
     runs-on: windows-latest
     steps:
-      - name: Find Percentage
-        run: echo "PERCENTAGE=63" >> $GITHUB_ENV
+      - name: Find Percentage Windows
+        run: echo "PERCENTAGE_WIN=63" >> $env:GITHUB_ENV
 
-      - name: Make badge
-        uses: schneegans/dynamic-badges-action@v1.4.0
+      - name: Make badge windows
+        uses: schneegans/dynamic-badges-action@v1.6.0
         with:
           # GIST_TOKEN is a GitHub personal access token with scope "gist".
           auth: ${{ secrets.GIST_TOKEN }}
           gistID: 4fb351291438ee5d4f772ff9966f06d3   # replace with your real Gist id.
-          filename: covbadge.json
-          label: Coverage
-          message: ${{ env.PERCENTAGE }}%
-          minColorRange: 50
-          maxColorRange: 90
-          valColorRange: ${{ env.PERCENTAGE }}
+          filename: covbadge_windows.json
+          label: Windows
+          message: ${{ env.PERCENTAGE_WIN }}%
+          minColorRange: 0
+          maxColorRange: 100
+          valColorRange: ${{ env.PERCENTAGE_WIN }}
+
+  coverage_macos:
+    name: Coverage OSX
+    needs: tests
+    runs-on: macos-latest
+    steps:
+      - name: Find Percentage OSX
+        run: echo "PERCENTAGE_OSX=63" >> $GITHUB_ENV
+
+      - name: Make badge OSX
+        uses: schneegans/dynamic-badges-action@v1.6.0
+        with:
+          # GIST_TOKEN is a GitHub personal access token with scope "gist".
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: 4fb351291438ee5d4f772ff9966f06d3   # replace with your real Gist id.
+          filename: covbadge_osx.json
+          label: MacOSX
+          message: ${{ env.PERCENTAGE_OSX }}%
+          minColorRange: 0
+          maxColorRange: 100
+          valColorRange: ${{ env.PERCENTAGE_OSX }}
+
+  coverage_linux:
+    name: Coverage Ubuntu
+    needs: tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Find Percentage Ubuntu
+        run: echo "PERCENTAGE_UBUNTU=63" >> $GITHUB_ENV
+
+      - name: Make badge Ubuntu
+        uses: schneegans/dynamic-badges-action@v1.6.0
+        with:
+          # GIST_TOKEN is a GitHub personal access token with scope "gist".
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: 4fb351291438ee5d4f772ff9966f06d3   # replace with your real Gist id.
+          filename: covbadge_ubuntu.json
+          label: Ubuntu
+          message: ${{ env.PERCENTAGE_UBUNTU }}%
+          minColorRange: 0
+          maxColorRange: 100
+          valColorRange: ${{ env.PERCENTAGE_UBUNTU }}
 
