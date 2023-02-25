@@ -17,10 +17,10 @@ jobs:
     steps:
       - name: Test with tox (windows)
         if: matrix.os == 'windows-latest'
-        run: $env:PYTEST_OUTPUT = "${{env.output}}"
+        run: echo "$env:PYTEST_OUTPUT=${{env.output}}" >> $GITHUB_ENV
       - name: Test with tox (non-windows)
         if: matrix.os != 'windows-latest'
-        run: export PYTEST_OUTPUT="${{env.output}}"
+        run: echo "PYTEST_OUTPUT=${{env.output}}" >> GITHUB_ENV
 
       - name: Coverage Windows Trim
         if: matrix.os == 'windows-latest'
