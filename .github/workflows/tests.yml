@@ -27,6 +27,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install tox tox-gh-actions
 
+      - name: Normal tox
+        run: tox
+
       - name: Test with tox (windows)
         if: matrix.os == 'windows-latest'
         run: |
