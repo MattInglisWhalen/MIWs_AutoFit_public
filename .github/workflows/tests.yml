@@ -26,12 +26,18 @@ jobs:
           python -m pip install --upgrade pip
           pip install tox tox-gh-actions
 
-      - name: Test with tox
-        run: tox
+      - name: Test with tox (windows)
+        if: matrix.os == 'windows-latest'
+        run: $env:PYTEST_OUTPUT = $( tox )
 
-      - name: Coverage Windows Extract
-        if: ( ( matrix.os == 'windows-latest') && ( matrix.python-version == '3.9') )
-        run: $env:PYTEST_OUTPUT = $( python -m pytest -W ignore::RuntimeWarning --cov-report term )
+      - name: Test with tox (osx/ubuntu)
+        if: matrix.os != 'windows-latest'
+        run: PYTEST_OUTPUT = $( tox )
+
+      - name: Simple check for osx and ubuntu
+        if: matris.os != 'windows-latest'
+        run: echo ${{ env.PYTEST_OUTPUT }}
+
       - name: Coverage Windows Trim
         if: ( ( matrix.os == 'windows-latest') && ( matrix.python-version == '3.9') )
         run: |
