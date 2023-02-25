@@ -27,9 +27,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install tox tox-gh-actions
 
-      - name: Show me tox output
-        run: tox
-
       - name: Test with tox (windows)
         if: matrix.os == 'windows-latest'
         run: |
@@ -43,17 +40,17 @@ jobs:
         run: |
           export TOX_RAW=$( python -m tox )
           export TOX_TRIMMED=$( [[ ${TOX_RAW} =~ (TOTAL[[:blank:]0-9]*%) ]] && echo "${BASH_REMATCH[1]}" )
-          export TOX_PERC=$( [[ ${TOX_TRIMMED} =~ ([0-9]*%) ]] && echo "${BASH_REMATCH[1]}" )
-          echo ">>>>>>>>>>>>>>>>>>>> $TOX_PERC >>>>>>>>>>>>>>>>>>>> $TOX_TRIMMED <<<<<<<<<<<<<<<<<< $TOX_RAW <<<<<<<<<<<<<<<<<<"
-          echo "PERCENTAGE_UBUNTU=${TOX_PERC::-1}" >> $GITHUB_ENV
+          export TOX_PERC_WITH_SYMBOL=$( [[ ${TOX_TRIMMED} =~ ([0-9]*%) ]] && echo "${BASH_REMATCH[1]}" )
+          export TOX_PERC=$( [[ ${TOX_TRIMMED} =~ ([0-9]*) ]] && echo "${BASH_REMATCH[1]}" )
+          echo "PERCENTAGE_UBUNTU=${TOX_PERC}" >> $GITHUB_ENV
       - name: Test with tox (macos)
         if: matrix.os == 'macos-latest'
         run: |
           export TOX_RAW=$( python -m tox )
           export TOX_TRIMMED=$( [[ ${TOX_RAW} =~ (TOTAL[[:blank:]0-9]*%) ]] && echo "${BASH_REMATCH[1]}" )
-          export TOX_PERC=$( [[ ${TOX_TRIMMED} =~ ([0-9]*%) ]] && echo "${BASH_REMATCH[1]}" )
-          echo ">>>>>>>>>>>>>>>>>>>> $TOX_PERC >>>>>>>>>>>>>>>>>>>> $TOX_TRIMMED <<<<<<<<<<<<<<<<<< $TOX_RAW <<<<<<<<<<<<<<<<<<"
-          echo "PERCENTAGE_OSX=${TOX_PERC: : -1}" >> $GITHUB_ENV
+          export TOX_PERC_WITH_SYMBOL=$( [[ ${TOX_TRIMMED} =~ ([0-9]*%) ]] && echo "${BASH_REMATCH[1]}" )
+          export TOX_PERC=$( [[ ${TOX_TRIMMED} =~ ([0-9]*) ]] && echo "${BASH_REMATCH[1]}" )
+          echo "PERCENTAGE_MACOS=${TOX_PERC}" >> $GITHUB_ENV
       - name: Output (windows)
         if: matrix.os == 'windows-latest'
         run: |
